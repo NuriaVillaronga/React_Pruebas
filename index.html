@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pruebas con react</title>
+    <style>
+        img {
+            box-shadow: 0 0 15px rgb(223, 223, 223);
+            border-radius: 50%;
+            width: 100px;
+        }
+        picture {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            width: 100px;
+        }
+        img.disabled {
+            opacity: .3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Women in tech</h1>
+
+    <div id="app"></div>
+
+    <script>
+        const app = document.getElementById('app');
+
+        const Avatar = params => {
+            const src=`https://randomuser.me/api/portraits/women/${params.id}.jpg`;
+            return `<picture>
+                        <img src="${src}"/>
+                        <strong>${params.name}</strong>
+                    </picture>`; 
+        };
+
+        app.innerHTML += Avatar({id: 6, name:"Marta"});
+        app.innerHTML += Avatar({id: 8, name:"María"});
+
+        app.querySelectorAll('img').forEach(img => {
+            img.addEventListener('click', () => {
+                img.classList.toggle('disabled') //Se le añade la clase para que se "desactive"
+            })
+        })
+    </script>
+</body>
+</html>
