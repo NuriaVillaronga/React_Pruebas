@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pruebas con react</title>
+    <style>
+        img {
+            box-shadow: 0 0 15px rgb(223, 223, 223);
+            border-radius: 50%;
+            width: 100%;
+        }
+        picture {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            width: 100px;
+        }
+        picture.is-samll{
+            width: 60px;
+        }
+        picture.is-large{
+            width: 150px;
+        }
+        img.disabled {
+            opacity: .3;
+        }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <h1>Contador</h1>
+
+    <div id="app"></div>
+
+    <script type="text/babel">
+
+        const useState = React.useState
+
+        const Contador = () => {
+            
+            const [valor, setValor] = useState(0);
+
+            const [numClick, setNumClick] = useState(0);
+
+            return (<div>
+                        <p><strong>{valor}</strong></p>
+                        <button onClick={() => { setValor(valor + 1); setNumClick(numClick + 1); }}>Incrementar</button>
+                        <button onClick={() => { setValor(valor - 1); setNumClick(numClick + 1); }}>Decerementar</button>
+                        <p>Numero de clicks : {numClick}</p>
+                    </div>); 
+        }; 
+
+        ReactDOM.createRoot(document.getElementById('app')).render(
+            <div>
+                <Contador/>
+            </div>
+        ); 
+        
+    </script>
+</body>
+</html>

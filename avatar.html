@@ -43,7 +43,7 @@
 
         const Avatar = ({ id, name= 'no_name', size }) => {
             
-            //Se establece el valor incial del estado. Inicialmente estará activo => true. useState es un array de dos posicipones para permitir el cambio de estado
+            //Se establece el valor incial del estado. Inicialmente estará activo => true. useState es un array de dos posicipones para permitir el cambio de estado => array (valor, actualizador)
             const [enabled, setEnabled] = useState(true);
 
             const attrImg = enabled ? '' : 'disabled'; //Si está activado no le añadirá atributo a attrImg, en otro caso, lo establecerá a disabled
@@ -66,7 +66,7 @@
                         }
                          
                         <strong>{enabled ? name : ''}</strong>
-                    </picture>); 
+                    </picture>); //Solo renderiza un elemento: <button></button><button></button> no lo renderizaría (2 elementos) -//- <div><button></button><button></button></div> si que lo renderizaría (1 lemento) -//- Si no se quiere añadir otro elemento html más allá que los dos buttons, la solucion : <React.Fragment><button></button><button></button></React.Fragment>
         }; 
         
         //Nota: El evento de una funcion devuelve el propio elemento que se está clickando --> <img onClick={(event) => { event.target.classList.toggle("disabled");}} src={src}/>
