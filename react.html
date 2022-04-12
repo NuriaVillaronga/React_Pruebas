@@ -9,13 +9,19 @@
         img {
             box-shadow: 0 0 15px rgb(223, 223, 223);
             border-radius: 50%;
-            width: 100px;
+            width: 100%;
         }
         picture {
             display: flex;
             flex-direction: column;
             text-align: center;
             width: 100px;
+        }
+        picture.is-samll{
+            width: 60px;
+        }
+        picture.is-large{
+            width: 150px;
         }
         img.disabled {
             opacity: .3;
@@ -33,20 +39,44 @@
     <script type="text/babel">
         const app = document.getElementById('app');
 
-        const h = React.createElement; //crear elementos
+        const useState = React.useState
 
-        const Avatar = params => {
-            const src=`https://randomuser.me/api/portraits/women/${params.id}.jpg`;
-            return (<picture>
-                        <img src={src}/>
-                        <strong>{params.name}</strong>
+        const Avatar = ({ id, name= 'no_name', size }) => {
+            
+            //Se establece el valor incial del estado. Inicialmente estará activo => true. useState es un array de dos posicipones para permitir el cambio de estado
+            const [enabled, setEnabled] = useState(true);
+
+            const attrImg = enabled ? '' : 'disabled'; //Si está activado no le añadirá atributo a attrImg, en otro caso, lo establecerá a disabled
+
+            let attrSize = ''; 
+            if(size == "small") {
+                attrSize = 'is-samll';
+            }
+            else if(size == "large") {
+                attrSize = 'is-large';
+            }
+
+            const src=`https://randomuser.me/api/portraits/women/${id}.jpg`; 
+
+            const noImage='https://randomuser.me/api/portraits/lego/1.jpg'; 
+            
+            return (<picture className={attrSize}>
+                        {
+                            id ? (<img onClick={() => setEnabled(!enabled)} className={attrImg} src={src}/>) : (<img onClick={() => setEnabled(!enabled)} className={attrImg} src={noImage}/>)
+                        }
+                         
+                        <strong>{enabled ? name : ''}</strong>
                     </picture>); 
-        };
+        }; 
+        
+        //Nota: El evento de una funcion devuelve el propio elemento que se está clickando --> <img onClick={(event) => { event.target.classList.toggle("disabled");}} src={src}/>
 
         ReactDOM.render(
             <div>
-                <Avatar id={9} name ="Marta" />
-                <Avatar id={12} name ="María" />    
+                <Avatar id={18} size='small'/> 
+                <Avatar  name="María" />     
+                <Avatar id={24} name="Moraima" size='large'/> 
+                <Avatar/>  
             </div>, 
             app
         ); //El div se renderizará en app
